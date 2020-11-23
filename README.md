@@ -37,7 +37,7 @@ Base Box build instructions in k8s-base-box directory
 
   https://app.vagrantup.com/surajit-code/boxes/Cent7K8sBase
   
-  By default this box on the cloud are used for creating the final VMs
+  By default this box on the cloud is used for creating the final VMs
   
   This location is referenced in the respective Vagrant files, you do
   
