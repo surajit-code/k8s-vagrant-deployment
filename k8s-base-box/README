@@ -10,6 +10,9 @@ Instructions are for ceating a base box on libvirt on CentOS 7 host
     rpm -Uvh vagrant_2.2.10_x86_64.rpm
   On CentOS and Ubuntu, rsysnc will need to be installed
     yum install rsync
+    
+  For Windows a search for VirtualBox will point you to the downloads page.
+  For Windows a search for Vagrant will point you to the downloads page.
 
   vagrant plugins requirement
     On CentOS 7
@@ -18,6 +21,22 @@ Instructions are for ceating a base box on libvirt on CentOS 7 host
       Plugin installtion
         vagrant plugin install vagrant-libvirt
         vagrant plugin install vagrant-mutate
+        
+    On Windows
+      vagrant-hostmanager (1.8.9, global)
+      vagrant-mutate (1.2.0, global)
+      vagrant-vbguest (0.25.0, global)
+      vagrant-winnfsd (1.4.0, global)
+      Plugin installation commands:
+        vagrant plugin install vagrant-hostmanager
+        vagrant plugin install vagrant-mutate
+        vagrant plugin install vagrant-vbguest
+        vagrant plugin install vagrant-winnfsd
+        
+    On Mac
+      vagrant-hostmanager (1.8.9, global)
+      Plugin installation commands:
+        vagrant plugin install vagrant-hostmanager
 
 Prepare storage pool for libvirt:
   Vagrant uses pool name default for VM images
@@ -61,7 +80,8 @@ run the following in order
   vagrant up --provider=libvirt #on KVM
   vagrant up --provider=virtualbox #on VirtualBox
   vagrant box list
-  export LIBGUESTFS_BACKEND=direct
+  export LIBGUESTFS_BACKEND=direct #only on KVM/libvirt
   vagrant package --output Cent7K8sBase.box
   vagrant box add Cent7K8sBase.box --name Cent7K8sBase
   vagrant box list
+  vagrant destroy
