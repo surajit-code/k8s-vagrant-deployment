@@ -43,6 +43,9 @@ Networking:
   In my case the IPs were 192.168.29.11 and 192.168.29.12
   The router's gateway IP 192.168.29.1, which was used in the
   route command of the SHELL section
+  You need to update the IPs in the respective Vagrant files.
+  If in doubt, just match the IPs in this README mentioned above with
+  the values the the Vagrantfile and replace the IPs of your choice.
 
   During installation Vagrant will prompt for the NIC to use
   for public network bridge
