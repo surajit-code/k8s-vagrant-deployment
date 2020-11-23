@@ -1,0 +1,86 @@
+These directories house Vagrant files that help
+install k8s master and worker node with libvirt
+On CentOS7 and should work with Ubuntu
+
+Dependencies:
+  Vagrant 2.2.10 and libvirt 4.5.0
+    Vagrant installtion
+    wget https://releases.hashicorp.com/vagrant/2.2.10/vagrant_2.2.10_x86_64.rpm
+    rpm -Uvh vagrant_2.2.10_x86_64.rpm
+    On CentOS and Ubuntu, rsysnc will need to be installed
+      yum install rsync
+  vagrant plugins requirement
+    On CentOS 7
+      Plugin install prerequisite on CentOS7
+        yum install gcc libvirt libvirt-devel libxml2-devel make ruby-devel
+
+        vagrant plugin install vagrant-libvirt
+        vagrant plugin install vagrant-mutate
+
+      Versions installed:
+      vagrant-libvirt (0.2.1, global)
+      vagrant-mutate (1.2.0, global)
+
+    On Ubuntu
+      undetermined
+
+  You will need internet access as vagrant will pull
+  the base box from vagrant cloud storage
+
+Prepare storage pool for libvirt:
+  Vagrant uses pool name default for VM images
+  Verify if it exists like so:
+  virsh pool-list --all | grep default
+  If it is active you are good
+
+  If not find a partition with about 85G of free space
+  And create a pool as below. For my example it was /home/
+
+    mkdir -p /home/vagrant-images
+
+    virsh pool-define /dev/stdin <<EOF
+<pool type='dir'>
+  <name>default</name>
+  <target>
+    <path>/home/vagrant-images</path>
+  </target>
+</pool>
+EOF
+
+    virsh pool-start default
+    virsh pool-autostart default
+
+Certain firewall rules may prevent Vagrant from
+allocating IP to VMs
+  For this either figure out the offending rule
+  and allow that port to communicate
+
+  Or, flush filter table rules at your risk
+  to flush filter rules with just iptables, run
+  iptables -F
+  If firewall is managed by firewalld, to
+  flush run
+  systemctl stop firewalld
+
+For firing up the VMs just login to each directory
+and run vagrant up --provider=libvirt
+
+
+Running the VMs:
+  For firing up the VMs just login to each directory
+  and run vagrant up --provider=libvirt
+
+  Run on KVM_VM1 first.
+  The logs will prompt you on when you should repeat the same
+  on KVM_VM2
+
+Removing VMs:
+  run vagrant destroy in each Vagrantfile containing directory
+
+Hold VM in stasis and resume:
+  Go to directory containing each Vagrantfile
+  Run
+  vagrant suspend
+  To resume run
+  vagrant resume
+

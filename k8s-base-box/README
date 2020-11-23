@@ -1,0 +1,67 @@
+Instructions are for ceating a base box on libvirt on CentOS 7 host
+
+  Make sure libvirt/kvm installed and running on libvirt
+  systemctl status libvirtd
+  To install on CentOS7 you can use:
+  yum install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
+
+  Vagrant installtion:
+    wget https://releases.hashicorp.com/vagrant/2.2.10/vagrant_2.2.10_x86_64.rpm
+    rpm -Uvh vagrant_2.2.10_x86_64.rpm
+  On CentOS and Ubuntu, rsysnc will need to be installed
+    yum install rsync
+
+  vagrant plugins requirement
+    On CentOS 7
+      Plugin install prerequisite on CentOS7
+        yum install gcc libvirt libvirt-devel libxml2-devel make ruby-devel
+      Plugin installtion
+        vagrant plugin install vagrant-libvirt
+        vagrant plugin install vagrant-mutate
+
+Prepare storage pool for libvirt:
+  Vagrant uses pool name default for VM images
+  Verify if it exists like so:
+  virsh pool-list --all | grep default
+  If it is active you are good
+
+  If not find a partition with about 45G of free space
+  And create a pool as below. For my example it was /home/
+
+    mkdir -p /home/vagrant-images
+
+    virsh pool-define /dev/stdin <<EOF
+<pool type='dir'>
+  <name>default</name>
+  <target>
+    <path>/home/vagrant-images</path>
+  </target>
+</pool>
+EOF
+
+    virsh pool-start default
+    virsh pool-autostart default
+
+Certain firewall rules may prevent Vagrant from
+allocating IP to VMs
+  For this either figure out the offending rule
+  and allow that port to communicate
+
+  Or, flush filter table rules at your own risk
+  to flush filter rules with just iptables, run
+  iptables -F
+  If firewall is managed by firewalld, to
+  flush run
+  systemctl stop firewalld
+
+Base box creation
+
+cd to directory k8s-base-box
+run the following in order
+  vagrant up --provider=libvirt #on KVM
+  vagrant up --provider=virtualbox #on VirtualBox
+  vagrant box list
+  export LIBGUESTFS_BACKEND=direct
+  vagrant package --output Cent7K8sBase.box
+  vagrant box add Cent7K8sBase.box --name Cent7K8sBase
+  vagrant box list

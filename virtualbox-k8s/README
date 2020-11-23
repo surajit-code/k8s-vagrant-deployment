@@ -1,0 +1,97 @@
+These directories house Vagrant files that help
+install k8s master and worker node on VirtualBox
+On MacOS Catalina and Windows 10
+
+Dependencies:
+  Vagrant 2.2.10 and VirtualBox 6.1
+  vagrant plugins requirement
+    On Mac
+      vagrant-hostmanager (1.8.9, global)
+
+    On Windows 10
+      vagrant-hostmanager (1.8.9, global)
+      vagrant-mutate (1.2.0, global)
+      vagrant-vbguest (0.25.0, global)
+      vagrant-winnfsd (1.4.0, global)
+
+  You will need internet access as vagrant will pull
+  the base box from vagrant cloud storage
+
+For firing up the VMs just login to each directory
+and run vagrant up
+
+Networking:
+  The public network on each Vagrant file is of key importance
+  This network will have the dual responsibility of having
+  the VMs communicate with each other and with the internet.
+
+  For this, choose 2 unused IPs from the range of IPs that the
+  router of your home network allocates.
+  Also, use the IP of the router as the gateway IP in the SHELL
+  section of the Vagrantfile
+
+  In my case the IPs were 192.168.29.11 and 192.168.29.12
+  The router's gateway IP 192.168.29.1, which was used in the
+  route command of the SHELL section
+
+  During installation Vagrant will prompt for the NIC to use
+  for public network bridge
+  For this please select the interface which is connected to router
+
+  The prompt will look something like this on windows:
+
+    ==> k8s-master: Clearing any previously set network interfaces...
+    ==> k8s-master: Available bridged network interfaces:
+    1) Intel(R) I211 Gigabit Network Connection
+    2) Npcap Loopback Adapter
+    ==> k8s-master: When choosing an interface, it is usually the one that is
+    ==> k8s-master: being used to connect to the internet.
+    ==> k8s-master:
+        k8s-master: Which interface should the network bridge to? 1
+    ==> k8s-master: Preparing network interfaces based on configuration...
+        k8s-master: Adapter 1: nat
+        k8s-master: Adapter 2: bridged
+        k8s-master: Adapter 3: hostonly
+
+  The prompt will look something like this on Mac:
+
+    ==> k8s-master: Clearing any previously set network interfaces...
+    ==> k8s-master: Available bridged network interfaces:
+    1) en0: Wi-Fi (AirPort)
+    2) en5: USB Ethernet(?)
+    3) p2p0
+    4) awdl0
+    5) llw0
+    6) en3: Thunderbolt 1
+    7) en1: Thunderbolt 2
+    8) en4: Thunderbolt 3
+    9) en2: Thunderbolt 4
+    10) en7: USB 10/100/1000 LAN
+    11) bridge0
+    ==> k8s-master: When choosing an interface, it is usually the one that is
+    ==> k8s-master: being used to connect to the internet.
+    ==> k8s-master:
+        k8s-master: Which interface should the network bridge to? 1
+    ==> k8s-master: Preparing network interfaces based on configuration...
+        k8s-master: Adapter 1: nat
+        k8s-master: Adapter 2: bridged
+        k8s-master: Adapter 3: hostonly
+
+
+Running the VMs:
+  For firing up the VMs just login to each directory
+  and run vagrant up
+
+  Run on VB_VM1 first.
+  The logs will prompt you on when you should repeat the same
+  on VB_VM2
+
+Removing VMs:
+  run vagrant destroy in each Vagrantfile containing directory
+
+Hold VM in stasis and resume:
+  Go to directory containing each Vagrantfile
+  Run
+  vagrant suspend
+  To resume run
+  vagrant resume
