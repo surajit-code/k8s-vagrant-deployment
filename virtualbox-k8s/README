@@ -2,17 +2,27 @@ These directories house Vagrant files that help
 install k8s master and worker node on VirtualBox
 On MacOS Catalina and Windows 10
 
+
 Dependencies:
   Vagrant 2.2.10 and VirtualBox 6.1
+  A google search will land you to the current download pages of Vagrant and VirtualBox
+  After both are installed, you will need to install supporting Vagrant plugins
   vagrant plugins requirement
     On Mac
       vagrant-hostmanager (1.8.9, global)
+      Plugin installation commands:
+        vagrant plugin install vagrant-hostmanager
 
     On Windows 10
       vagrant-hostmanager (1.8.9, global)
       vagrant-mutate (1.2.0, global)
       vagrant-vbguest (0.25.0, global)
       vagrant-winnfsd (1.4.0, global)
+      Plugin installation commands:
+        vagrant plugin install vagrant-hostmanager
+        vagrant plugin install vagrant-mutate
+        vagrant plugin install vagrant-vbguest
+        vagrant plugin install vagrant-winnfsd
 
   You will need internet access as vagrant will pull
   the base box from vagrant cloud storage
