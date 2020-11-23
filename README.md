@@ -40,7 +40,6 @@ Base Box build instructions in k8s-base-box directory
   By default this box on the cloud is used for creating the final VMs
   
   This location is referenced in the respective Vagrant files, you do
-  
   not need to download them manually
 
   It is not necessary to build the base box.
