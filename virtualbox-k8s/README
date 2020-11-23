@@ -99,6 +99,16 @@ Running the VMs:
   The logs will prompt you on when you should repeat the same
   on VB_VM2
 
+Logging in to VMs:
+    Run vagrant ssh in each directory containing the Vagrantfiles
+    to log in to each VM.
+    You will be logged in as user vagrant. This user is a paswordless
+    sudoer.
+    To become root you can run sudo su -
+    To verify installation, you can run this command as root user in the
+    master VM
+    kubectl get nodes -o wide
+
 Removing VMs:
   run vagrant destroy in each Vagrantfile containing directory
 
