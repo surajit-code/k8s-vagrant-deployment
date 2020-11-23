@@ -36,8 +36,13 @@ Base Box build instructions in k8s-base-box directory
   The box is prebuilt and uploaded on
 
   https://app.vagrantup.com/surajit-code/boxes/Cent7K8sBase
+  By default this box on the cloud are used for creating the final VMs
+  
+  This location is referenced in the respective Vagrant files, you do
+  
+  not need to download them manually
 
-  It is not necessary to build the base box
+  It is not necessary to build the base box.
 
 Vagrant 2 Node (1 Master, 1 Worker) on libvirt instructions and Vagrantfiles
 in the directory libvirt-k8s
