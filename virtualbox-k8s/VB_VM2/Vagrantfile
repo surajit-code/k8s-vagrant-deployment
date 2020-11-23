@@ -13,7 +13,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   # config.vm.box = "Cent7K8sBase"
-  config.vm.box = "surajit-code/Cent7K8sBase"
+  #config.vm.box = "surajit-code/Cent7K8sBase"
+  config.vm.box = "surajit-code/AtsCent7K8sBase"
   config.vm.define  :"k8s-worker-1"
   config.vm.hostname = "k8s-worker-1"
 
