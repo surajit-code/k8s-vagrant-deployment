@@ -43,9 +43,11 @@ Base Box build instructions in k8s-base-box directory
   not need to download them manually
 
   It is not necessary to build the base box.
-
+  
+    Instructions for KVM/libvirt platform
 Vagrant 2 Node (1 Master, 1 Worker) on libvirt instructions and Vagrantfiles
 in the directory libvirt-k8s
 
+    Instructions for VirtualBox on Windows/Mac
 Vagrant 2 Node (1 Master, 1 Worker) on VirtualBox, MacOS Catalina and Windows 10
 in the directory virtualbox-k8s
